@@ -27,6 +27,22 @@ $app->withFacades();
 
 $app->withEloquent();
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
+// DB::listen(function ($query) {
+//     Log::info('SQL Executed', [
+//         'sql' => $query->sql,
+//         'bindings' => $query->bindings,
+//         'time' => $query->time . ' ms'
+//     ]);
+// });
+
+DB::listen(function ($query) {
+    echo vsprintf(str_replace('?', '%s', $query->sql), collect($query->bindings)->map(fn($b) => "'$b'")->toArray());
+    echo "\n";
+});
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
