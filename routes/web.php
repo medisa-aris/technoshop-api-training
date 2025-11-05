@@ -18,4 +18,5 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('/products', 'ProductController@index');
+$router->get('/productinsert', 'ProductController@insert');
 
