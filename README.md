@@ -1,26 +1,140 @@
-# Lumen PHP Framework
+# 🛍️ Technoshop API (Lumen PHP Framework)
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/lumen)](https://packagist.org/packages/laravel/lumen-framework)
+Technoshop API is a lightweight backend built with **Laravel Lumen**, designed for high performance and simple RESTful API development.  
+It serves as the backend for the Technoshop web application — providing product data, pagination, and database management using **SQL Server**.
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+---
 
-> **Note:** In the years since releasing Lumen, PHP has made a variety of wonderful performance improvements. For this reason, along with the availability of [Laravel Octane](https://laravel.com/docs/octane), we no longer recommend that you begin new projects with Lumen. Instead, we recommend always beginning new projects with [Laravel](https://laravel.com).
+## 🚀 Features
 
-## Official Documentation
+- Built with [Laravel Lumen](https://lumen.laravel.com)
+- RESTful API architecture
+- Pagination and filtering
+- SQL Server database support
+- Eloquent ORM enabled
+- Simple setup & fast local run
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+---
 
-## Contributing
+## 📦 Project Structure
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+technoshop-api/
+├── app/
+│ ├── Http/
+│ │ └── Controllers/
+│ │ └── ProductController.php
+│ └── Models/
+│ └── Product.php
+├── bootstrap/
+│ └── app.php
+├── database/
+│ └── migrations/
+├── public/
+│ └── index.php
+├── routes/
+│ └── web.php
+├── .env
+├── composer.json
+└── README.md
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## ⚙️ Requirements
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Before you begin, make sure you have:
+
+- **PHP ≥ 8.1**
+- **Composer ≥ 2.5**
+- **SQL Server** (or Docker container)
+- PHP extensions:
+  - `pdo_sqlsrv`
+  - `sqlsrv`
+  - `mbstring`
+  - `openssl`
+  - `tokenizer`
+
+You can check installed PHP modules:
+```bash
+php -m
+
+
+🧩 Installation
+
+Clone the repository
+
+git clone https://github.com/yourusername/technoshop-api.git
+cd technoshop-api
+
+
+Install dependencies
+
+composer install
+
+
+Copy the environment file
+
+cp .env.example .env
+
+
+Configure database connection in .env:
+
+DB_CONNECTION=sqlsrv
+DB_HOST=localhost
+DB_PORT=1433
+DB_DATABASE=technoshop
+DB_USERNAME=sa
+DB_PASSWORD=your_password
+
+
+Enable Facades & Eloquent
+Open bootstrap/app.php and make sure these lines are uncommented:
+
+$app->withFacades();
+$app->withEloquent();
+
+🗃️ Database Setup
+1. Run Migrations
+php artisan migrate
+
+2. (Optional) Seed Sample Data
+
+You can insert your product data manually or create a seeder:
+
+php artisan make:seeder ProductSeeder
+php artisan db:seed --class=ProductSeeder
+
+🧠 Example API Endpoint
+
+GET Products (with pagination)
+
+GET http://localhost:8080/products?page=1&row=10
+
+
+Sample Response:
+
+{
+  "page": 1,
+  "row": 10,
+  "total": 25,
+  "data": [
+    {
+      "id": 1,
+      "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+      "price": 109.95,
+      "category": "men's clothing",
+      "rating_rate": 3.9,
+      "rating_count": 120
+    }
+  ]
+}
+
+▶️ Run the Server
+
+Start the built-in PHP development server:
+
+php -S localhost:8080 -t public
+
+
+Now visit:
+👉 http://localhost:8080/products
